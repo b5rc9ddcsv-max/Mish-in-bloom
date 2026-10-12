@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f5f0">
+<title>Mish in Bloom</title>
+<style>
+:root{--bg:#f7f5f0;--card:#fffefa;--ink:#252922;--muted:#777b72;--line:#e8e5dc;--green:#347a5c;--green-soft:#e7f1e9;--coral:#d97758;--coral-soft:#faece5;--blue:#557bb8;--blue-soft:#eaf0fa;--purple:#8065ad;--purple-soft:#f0eafa;--shadow:0 8px 24px rgba(45,48,38,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;padding:env(safe-area-inset-top) 16px 18px}.top{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 14px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:750}.brand{font-size:26px;font-weight:800;letter-spacing:-.8px;margin-top:3px}.date{color:var(--muted);font-size:13px;margin-top:5px}.avatar{width:44px;height:44px;border-radius:16px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:21px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 11px}.section-head h2{font-size:17px;margin:0;letter-spacing:-.3px}.sub{color:var(--muted);font-size:12px}.hero{background:linear-gradient(135deg,#b66ca5 0%,#8e78c9 100%);color:white;border-radius:25px;padding:20px;box-shadow:var(--shadow)}.hero-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.hero h1{font-size:22px;line-height:1.15;margin:7px 0 6px;letter-spacing:-.6px}.hero p{color:#d8e2da;margin:0;font-size:13px;line-height:1.45}.date-pill{background:#ffffff19;border:1px solid #ffffff20;border-radius:999px;padding:7px 10px;font-size:11px;white-space:nowrap}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.ring{background:#ffffff0c;border:1px solid #ffffff16;border-radius:17px;padding:12px 9px}.ring svg{display:block;width:54px;height:54px;margin:0 auto 7px;transform:rotate(-90deg)}.ring .num{text-align:center;font-size:17px;font-weight:800}.ring .lab{text-align:center;font-size:11px;color:#d6e0d8;margin-top:3px}.ring .goal{text-align:center;font-size:10px;color:#b9cbbf;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:15px;box-shadow:var(--shadow);min-width:0}.metric-top{display:flex;align-items:center;justify-content:space-between;gap:6px}.icon{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:17px}.green{background:var(--green-soft);color:var(--green)}.coral{background:var(--coral-soft);color:var(--coral)}.blue{background:var(--blue-soft);color:var(--blue)}.purple{background:var(--purple-soft);color:var(--purple)}.metric{font-size:25px;font-weight:800;letter-spacing:-.8px;margin-top:12px;overflow-wrap:anywhere}.metric small{font-size:13px;letter-spacing:0;color:var(--muted);font-weight:600}.metric-label{font-size:12px;color:var(--muted);margin-top:3px}.bar{height:6px;background:#eeece5;border-radius:99px;overflow:hidden;margin-top:12px}.bar span{height:100%;display:block;border-radius:99px;background:var(--green);width:0;transition:width .2s}.bar.coralbar span{background:var(--coral)}.bar.bluebar span{background:var(--blue)}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:13px 12px;text-align:left;display:flex;gap:10px;align-items:center;color:var(--ink);font-weight:700}.action span:first-child{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--green-soft);color:var(--green);font-size:18px}.action small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}
+.list{display:flex;flex-direction:column;gap:9px}.entry{display:flex;align-items:center;gap:11px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:15px}.entry-icon{width:39px;height:39px;flex:0 0 39px;border-radius:13px;background:#f0eee7;display:grid;place-items:center;font-size:18px}.entry-main{min-width:0;flex:1}.entry-title{font-weight:700;overflow-wrap:anywhere}.entry-meta{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}.entry-value{text-align:right;font-size:13px;font-weight:750;white-space:nowrap}.delete{border:0;background:transparent;color:#a6a69f;font-size:20px;padding:3px 5px}
+.empty{padding:20px;text-align:center;border:1px dashed #d9d6cc;border-radius:16px;color:var(--muted);font-size:13px;background:#ffffff75}.tabs{position:fixed;z-index:10;bottom:0;left:0;right:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#fbfaf6f2;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center}.tabbar{width:100%;max-width:760px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px}.tab{border:0;background:transparent;color:var(--muted);border-radius:13px;padding:7px 2px;font-size:10px;font-weight:650;display:flex;flex-direction:column;align-items:center;gap:4px}.tab b{font-size:20px;font-weight:500;line-height:1}.tab.active{background:var(--green-soft);color:var(--green)}
+.page{display:none}.page.active{display:block}.primary{border:0;border-radius:13px;padding:13px 16px;background:var(--green);color:white;font-weight:750;width:100%}.secondary{border:1px solid var(--line);border-radius:12px;padding:10px 13px;background:var(--card);color:var(--ink);font-weight:650}.form-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;margin-bottom:12px}.form-card h3{margin:0 0 14px;font-size:16px}.field{margin-bottom:13px}.field:last-child{margin-bottom:0}.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #dedbd1;background:#fff;border-radius:12px;padding:12px;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #347a5c18}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.note{background:var(--blue-soft);color:#3f5f91;border-radius:14px;padding:12px 14px;font-size:12px;line-height:1.5;margin:12px 0}.success{color:var(--green);font-size:12px;margin-top:10px;display:none}.goal-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.goal-row:last-child{border-bottom:0}.goal-row label{font-size:13px;font-weight:650}.goal-row input{width:100px;border:1px solid var(--line);border-radius:10px;padding:9px;background:white;text-align:right}.small-btn{border:1px solid var(--line);background:white;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700}.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.day{padding:10px 2px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:10px;color:var(--muted)}.day strong{display:block;font-size:14px;color:var(--ink);margin-top:6px}.day.done{background:var(--green-soft);border-color:#c8dfce}.privacy{font-size:11px;color:var(--muted);line-height:1.5;margin-top:18px}
+@media(min-width:600px){.app{padding-left:24px;padding-right:24px}.hero{padding:24px}.metric{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div><div class="eyebrow">Your personal wellness space</div><div class="brand">Mish in Bloom<span style="color:#d86d9a"> ✦</span></div><div class="date" id="todayLabel"></div></div>
+  <div class="avatar">✳</div>
+</header>
+
+<main>
+<section class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-top"><div><div class="eyebrow" style="color:#b9cbbf">YOUR DAILY CHECK-IN</div><h1>Small steps.<br>Real progress.</h1><p>Build consistency, one day at a time.</p></div><div class="date-pill" id="heroDate"></div></div>
+    <div class="rings">
+      <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#ffffff25" stroke-width="4"/><circle id="moveRing" cx="22" cy="22" r="18" fill="none" stroke="#f2a17e" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"/></svg><div class="num" id="moveRingNum">0</div><div class="lab">Move kcal</div><div class="goal" id="moveRingGoal">Goal 550</div></div>
+      <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#ffffff25" stroke-width="4"/><circle id="exerciseRing" cx="22" cy="22" r="18" fill="none" stroke="#ffd0e5" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"/></svg><div class="num" id="exerciseRingNum">0</div><div class="lab">Exercise min</div><div class="goal" id="exerciseRingGoal">Goal 30</div></div>
+      <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#ffffff25" stroke-width="4"/><circle id="standRing" cx="22" cy="22" r="18" fill="none" stroke="#ded1ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"/></svg><div class="num" id="standRingNum">—</div><div class="lab">Stand hours</div><div class="goal" id="standRingGoal">Goal 12</div></div>
+    </div>
+  </div>
+  <div class="section-head"><h2>Today's overview</h2><span class="sub" id="overviewDate"></span></div>
+  <div class="grid">
+    <div class="card"><div class="metric-top"><div class="icon coral">◉</div><span class="sub">NUTRITION</span></div><div class="metric"><span id="homeCalories">0</span><small> kcal</small></div><div class="metric-label">of <span id="homeCalGoal">1,900</span> daily target</div><div class="bar coralbar"><span id="calBar"></span></div></div>
+    <div class="card"><div class="metric-top"><div class="icon green">↗</div><span class="sub">PROTEIN</span></div><div class="metric"><span id="homeProtein">0</span><small> g</small></div><div class="metric-label">of <span id="homeProteinGoal">100</span> g target</div><div class="bar"><span id="proteinBar"></span></div></div>
+    <div class="card"><div class="metric-top"><div class="icon purple">✣</div><span class="sub">WORKOUTS</span></div><div class="metric" id="homeWorkoutCount">0</div><div class="metric-label"><span id="homeWorkoutMinutes">0</span> minutes logged today</div></div>
+    <div class="card"><div class="metric-top"><div class="icon blue">⌁</div><span class="sub">WEIGHT</span></div><div class="metric"><span id="homeWeight">—</span><small> kg</small></div><div class="metric-label" id="homeBodyFat">Add your latest measurements</div></div>
+  </div>
+  <div class="section-head"><h2>Quick add</h2><span class="sub">Keep it simple</span></div>
+  <div class="actions">
+    <button class="action" data-go="workouts"><span>＋</span><div>Log workout<small>Gym, home or class</small></div></button>
+    <button class="action" data-go="food"><span>＋</span><div>Log food<small>Calories & protein</small></div></button>
+    <button class="action" data-go="body"><span>＋</span><div>Body check-in<small>Weight & composition</small></div></button>
+    <button class="action" data-go="activity"><span>＋</span><div>Move ring<small>End-of-day activity</small></div></button>
+  </div>
+  <div class="section-head"><h2>Today's activity</h2><span class="sub" id="activityCount">0 entries</span></div>
+  <div class="list" id="todayActivity"><div class="empty">Your day starts here. Log a workout, meal or check-in to see it appear.</div></div>
+  <div class="section-head"><h2>This week's consistency</h2></div>
+  <div class="week" id="weekStrip"></div>
+  <p class="privacy">Your entries are stored on this device in this browser. This first version does not send your health data to a server or connect to Apple Health yet.</p>
+</section>
+
+<section class="page" id="page-workouts">
+  <div class="section-head"><h2>Workouts</h2><span class="sub">Every movement counts</span></div>
+  <div class="form-card"><h3>Log a session</h3><form id="workoutForm">
+    <div class="field"><label for="workoutType">Workout type</label><select id="workoutType"><option>Gym</option><option>Home workout</option><option>Fitness class</option><option>Walk</option><option>Run</option><option>Other</option></select></div>
+    <div class="field"><label for="workoutName">Workout or exercises</label><input id="workoutName" placeholder="e.g. Incline walk, lunges, Pilates" required></div>
+    <div class="two"><div class="field"><label for="workoutDuration">Duration (minutes)</label><input id="workoutDuration" type="number" min="1" placeholder="30" required></div><div class="field"><label for="workoutDate">Date</label><input id="workoutDate" type="date" required></div></div>
+    <div class="field"><label for="workoutNotes">Notes (optional)</label><input id="workoutNotes" placeholder="e.g. 12 incline, speed 3.3"></div>
+    <button class="primary" type="submit">Save workout</button><div class="success" id="workoutSuccess">Workout saved.</div>
+  </form></div>
+  <div class="section-head"><h2>Workout history</h2></div><div class="list" id="workoutHistory"></div>
+</section>
+
+<section class="page" id="page-food">
+  <div class="section-head"><h2>Food & nutrition</h2><span class="sub">No judgement, just information</span></div>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="card"><div class="metric-top"><div class="icon coral">◉</div><span class="sub">CALORIES</span></div><div class="metric"><span id="foodTotalCalories">0</span><small> kcal</small></div><div class="metric-label">Target <span id="foodCalTarget">1,900</span></div><div class="bar coralbar"><span id="foodCalBar"></span></div></div>
+    <div class="card"><div class="metric-top"><div class="icon green">↗</div><span class="sub">PROTEIN</span></div><div class="metric"><span id="foodTotalProtein">0</span><small> g</small></div><div class="metric-label">Target <span id="foodProteinTarget">100</span> g</div><div class="bar"><span id="foodProteinBar"></span></div></div>
+  </div>
+  <div class="form-card"><h3>Add food or a meal</h3><form id="foodForm">
+    <div class="field"><label for="foodName">Food / meal</label><input id="foodName" placeholder="e.g. Greek yoghurt and berries" required></div>
+    <div class="field"><label for="mealType">Meal</label><select id="mealType"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Drink</option></select></div>
+    <div class="two"><div class="field"><label for="foodCalories">Calories (kcal)</label><input id="foodCalories" type="number" min="0" placeholder="350" required></div><div class="field"><label for="foodProtein">Protein (g)</label><input id="foodProtein" type="number" min="0" step="0.1" placeholder="25" required></div></div>
+    <div class="two"><div class="field"><label for="foodDate">Date</label><input id="foodDate" type="date" required></div><div class="field"><label for="foodTime">Time (optional)</label><input id="foodTime" type="time"></div></div>
+    <button class="primary" type="submit">Save food entry</button><div class="success" id="foodSuccess">Food entry saved.</div>
+  </form></div>
+  <div class="section-head"><h2>Food diary</h2><span class="sub" id="foodEntryCount"></span></div><div class="list" id="foodHistory"></div>
+  <div class="note">Tip: use the nutrition label or a trusted food database for estimates. Photo-based estimates and barcode lookup can be added in a later version.</div>
+</section>
+
+<section class="page" id="page-body">
+  <div class="section-head"><h2>Weight & body composition</h2><span class="sub">Look at trends, not one scan</span></div>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="card"><div class="metric-top"><div class="icon blue">⌁</div><span class="sub">WEIGHT</span></div><div class="metric"><span id="bodyLatestWeight">—</span><small> kg</small></div><div class="metric-label" id="bodyWeightDate">No measurement yet</div></div>
+    <div class="card"><div class="metric-top"><div class="icon coral">◌</div><span class="sub">BODY FAT</span></div><div class="metric"><span id="bodyLatestFat">—</span><small>%</small></div><div class="metric-label">Latest recorded result</div></div>
+    <div class="card"><div class="metric-top"><div class="icon green">✣</div><span class="sub">SKELETAL MUSCLE</span></div><div class="metric"><span id="bodyLatestMuscle">—</span><small> kg</small></div><div class="metric-label">Latest recorded result</div></div>
+    <div class="card"><div class="metric-top"><div class="icon blue">≈</div><span class="sub">BODY WATER</span></div><div class="metric"><span id="bodyLatestWater">—</span><small>%</small></div><div class="metric-label">Latest recorded result</div></div>
+  </div>
+  <div class="form-card"><h3>Record a measurement</h3><form id="bodyForm">
+    <div class="two"><div class="field"><label for="weightInput">Weight (kg)</label><input id="weightInput" type="number" min="1" step="0.1" placeholder="63.6"></div><div class="field"><label for="measurementDate">Date</label><input id="measurementDate" type="date" required></div></div>
+    <div class="two"><div class="field"><label for="fatInput">Body fat (%)</label><input id="fatInput" type="number" min="0" max="80" step="0.1" placeholder="33.9"></div><div class="field"><label for="muscleInput">Skeletal muscle (kg)</label><input id="muscleInput" type="number" min="0" step="0.1" placeholder="22.8"></div></div>
+    <div class="field"><label for="waterInput">Body water (%)</label><input id="waterInput" type="number" min="0" max="100" step="0.1" placeholder="48.3"></div>
+    <div class="field"><label for="bodyNotes">Notes (optional)</label><input id="bodyNotes" placeholder="e.g. Scan after gym"></div>
+    <button class="primary" type="submit">Save measurements</button><div class="success" id="bodySuccess">Measurements saved.</div>
+  </form></div>
+  <div class="section-head"><h2>Measurement history</h2></div><div class="list" id="bodyHistory"></div>
+  <div class="note">Body-composition scales can vary with hydration, meals and exercise. Compare readings taken under similar conditions and focus on multi-week trends.</div>
+</section>
+
+<section class="page" id="page-activity">
+  <div class="section-head"><h2>Activity & Move ring</h2><span class="sub">Daily totals from your watch</span></div>
+  <div class="note">Enter the figures shown in Apple Fitness. Automatic syncing requires a later native iPhone app with Apple Health permission.</div>
+  <div class="form-card"><h3>Daily activity check-in</h3><form id="activityForm">
+    <div class="field"><label for="activityDate">Date</label><input id="activityDate" type="date" required></div>
+    <div class="two"><div class="field"><label for="moveInput">Move / active calories (kcal)</label><input id="moveInput" type="number" min="0" placeholder="550"></div><div class="field"><label for="exerciseInput">Exercise minutes</label><input id="exerciseInput" type="number" min="0" placeholder="30"></div></div>
+    <div class="two"><div class="field"><label for="standInput">Stand hours</label><input id="standInput" type="number" min="0" max="24" placeholder="12"></div><div class="field"><label for="stepsInput">Steps (optional)</label><input id="stepsInput" type="number" min="0" placeholder="8000"></div></div>
+    <button class="primary" type="submit">Save activity totals</button><div class="success" id="activitySuccess">Activity totals saved.</div>
+  </form></div>
+  <div class="section-head"><h2>Activity history</h2></div><div class="list" id="activityHistory"></div>
+</section>
+
+<section class="page" id="page-settings">
+  <div class="section-head"><h2>Your goals</h2><span class="sub">Personalise your dashboard</span></div>
+  <div class="form-card"><h3>Daily targets</h3><form id="settingsForm">
+    <div class="goal-row"><label for="goalCalories">Calories (kcal)</label><input id="goalCalories" type="number" min="1" required></div>
+    <div class="goal-row"><label for="goalProtein">Protein (g)</label><input id="goalProtein" type="number" min="1" required></div>
+    <div class="goal-row"><label for="goalMove">Move calories (kcal)</label><input id="goalMove" type="number" min="1" required></div>
+    <div class="goal-row"><label for="goalExercise">Exercise minutes</label><input id="goalExercise" type="number" min="1" required></div>
+    <div class="goal-row"><label for="goalStand">Stand hours</label><input id="goalStand" type="number" min="1" max="24" required></div>
+    <div class="goal-row"><label for="goalWeight">Goal weight (kg)</label><input id="goalWeight" type="number" min="1" step=".1" required></div>
+    <button class="primary" style="margin-top:15px" type="submit">Save goals</button><div class="success" id="settingsSuccess">Goals saved.</div>
+  </form></div>
+  <div class="form-card"><h3>Reminders</h3><p class="sub">Set these in your iPhone Reminders app for now. In-app scheduled notifications can be added when we deploy the app.</p><div class="goal-row"><label>Morning check-in</label><span>☀️</span></div><div class="goal-row"><label>Log meals as you go</label><span>🥗</span></div><div class="goal-row"><label>Evening activity check</label><span>⌚</span></div><div class="goal-row"><label>Weekly weigh-in</label><span>⚖️</span></div></div>
+  <div class="form-card"><h3>Your data</h3><p class="sub">Entries are saved in this browser on this device. Clearing browser data may erase them. Export a backup regularly.</p><button class="secondary" id="exportBtn">Export backup (JSON)</button> <button class="secondary" id="csvBtn">Export entries (CSV)</button><div style="height:10px"></div><button class="secondary" id="importBtn">Import backup</button><input type="file" id="importFile" accept=".json,application/json" hidden><div style="height:10px"></div><button class="secondary" id="clearBtn" style="color:#a23d32">Delete all app data</button><div class="success" id="dataSuccess"></div></div>
+  <p class="privacy">Mish in Bloom is a personal tracking tool, not medical advice. It currently stores information locally in your browser and is not connected to Apple Health, a food database or a cloud account.</p>
+</section>
+</main>
+</div>
+
+<nav class="tabs"><div class="tabbar">
+<button class="tab active" data-page="home"><b>⌂</b>Today</button>
+<button class="tab" data-page="workouts"><b>✣</b>Workouts</button>
+<button class="tab" data-page="food"><b>◉</b>Food</button>
+<button class="tab" data-page="body"><b>⌁</b>Body</button>
+<button class="tab" data-page="settings"><b>☰</b>More</button>
+</div></nav>
+
+<script>
+(function(){
+const KEY='mishInBloomTracker.v1';
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const fresh=()=>({goals:{calories:1900,protein:100,move:550,exercise:30,stand:12,weight:59},workouts:[],foods:[],measurements:[],activities:[]});
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){state=fresh()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){alert('Could not save data in this browser. Please export a backup.')}render()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmtDate(d){if(!d)return '';const x=new Date(d+'T12:00:00');return x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function setTodayDefaults(){['workoutDate','foodDate','measurementDate','activityDate'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=today()})}
+function todayFoods(){return state.foods.filter(x=>x.date===today())}
+function todayWorkouts(){return state.workouts.filter(x=>x.date===today())}
+function todayActivity(){return state.activities.find(x=>x.date===today())||{}}
+function sums(arr,key){return arr.reduce((n,x)=>n+(Number(x[key])||0),0)}
+function pct(n,g){return Math.max(0,Math.min(100,(Number(n)||0)/(Number(g)||1)*100))}
+function setRing(id,val,goal){const c=document.getElementById(id);c.style.strokeDashoffset=113.1*(1-pct(val,goal)/100)}
+function latestMeasurement(){return [...state.measurements].sort((a,b)=>b.date.localeCompare(a.date))[0]}
+function renderHome(){
+const f=todayFoods(),w=todayWorkouts(),a=todayActivity(),m=latestMeasurement(),cal=sums(f,'calories'),pro=sums(f,'protein'),mins=sums(w,'duration');
+document.getElementById('moveRingNum').textContent=a.move??'—';document.getElementById('moveRingGoal').textContent='Goal '+state.goals.move;setRing('moveRing',a.move,state.goals.move);
+document.getElementById('exerciseRingNum').textContent=a.exercise??mins;document.getElementById('exerciseRingGoal').textContent='Goal '+state.goals.exercise;setRing('exerciseRing',a.exercise??mins,state.goals.exercise);
+document.getElementById('standRingNum').textContent=a.stand??'—';document.getElementById('standRingGoal').textContent='Goal '+state.goals.stand;setRing('standRing',a.stand,state.goals.stand);
+document.getElementById('homeCalories').textContent=cal.toLocaleString();document.getElementById('homeCalGoal').textContent=state.goals.calories.toLocaleString();document.getElementById('calBar').style.width=pct(cal,state.goals.calories)+'%';
+document.getElementById('homeProtein').textContent=Math.round(pro*10)/10;document.getElementById('homeProteinGoal').textContent=state.goals.protein;document.getElementById('proteinBar').style.width=pct(pro,state.goals.protein)+'%';
+document.getElementById('homeWorkoutCount').textContent=w.length;document.getElementById('homeWorkoutMinutes').textContent=mins;
+document.getElementById('homeWeight').textContent=m?.weight??'—';document.getElementById('homeBodyFat').textContent=m?.fat!=null?m.fat+'% body fat':(m?'Latest measurement':'Add your latest measurements');
+document.getElementById('foodTotalCalories').textContent=cal.toLocaleString();document.getElementById('foodTotalProtein').textContent=Math.round(pro*10)/10;document.getElementById('foodCalTarget').textContent=state.goals.calories.toLocaleString();document.getElementById('foodProteinTarget').textContent=state.goals.protein;document.getElementById('foodCalBar').style.width=pct(cal,state.goals.calories)+'%';document.getElementById('foodProteinBar').style.width=pct(pro,state.goals.protein)+'%';
+document.getElementById('homeWorkoutCount').textContent=w.length;
+const items=[...w.map(x=>({date:x.date,icon:'✣',title:x.name,meta:x.type+' · '+x.duration+' min'+(x.notes?' · '+x.notes:''),value:'Workout'})),...f.map(x=>({date:x.date,icon:'◉',title:x.name,meta:x.meal+' · '+x.calories+' kcal · '+x.protein+' g protein',value:'Food'})),...state.measurements.filter(x=>x.date===today()).map(x=>({date:x.date,icon:'⌁',title:'Body measurements',meta:[x.weight?x.weight+' kg':'',x.fat!=null?x.fat+'% fat':'',x.muscle!=null?x.muscle+' kg muscle':''].filter(Boolean).join(' · '),value:'Body'})),...state.activities.filter(x=>x.date===today()).map(x=>({date:x.date,icon:'◌',title:'Activity check-in',meta:[x.move!=null?x.move+' Move kcal':'',x.exercise!=null?x.exercise+' exercise min':'',x.stand!=null?x.stand+' stand hours':'',x.steps!=null?Number(x.steps).toLocaleString()+' steps':''].filter(Boolean).join(' · '),value:'Activity'}))].sort((a,b)=>b.date.localeCompare(a.date));
+document.getElementById('activityCount').textContent=items.length+' entries';
+document.getElementById('todayActivity').innerHTML=items.length?items.map(x=>`<div class="entry"><div class="entry-icon">${x.icon}</div><div class="entry-main"><div class="entry-title">${esc(x.title)}</div><div class="entry-meta">${esc(x.meta)}</div></div><div class="entry-value">${esc(x.value)}</div></div>`).join(''):'<div class="empty">Your day starts here. Log a workout, meal or check-in to see it appear.</div>';
+const now=new Date();const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));let week='';
+for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const done=state.workouts.some(x=>x.date===iso)||state.foods.some(x=>x.date===iso)||state.activities.some(x=>x.date===iso);week+=`<div class="day ${done?'done':''}">${d.toLocaleDateString('en-GB',{weekday:'short'})}<strong>${d.getDate()}</strong></div>`}document.getElementById('weekStrip').innerHTML=week;
+}
+function row(icon,title,meta,value,ondelete){return `<div class="entry"><div class="entry-icon">${icon}</div><div class="entry-main"><div class="entry-title">${esc(title)}</div><div class="entry-meta">${esc(meta)}</div></div><div class="entry-value">${esc(value||'')}</div><button class="delete" data-delete="${ondelete.type}" data-id="${ondelete.id}" aria-label="Delete entry">×</button></div>`}
+function renderLists(){
+const ws=[...state.workouts].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('workoutHistory').innerHTML=ws.length?ws.map(x=>row('✣',x.name,`${x.type} · ${x.duration} min · ${fmtDate(x.date)}${x.notes?' · '+x.notes:''}`,x.duration+' min',{type:'workouts',id:x.id})).join(''):'<div class="empty">No workouts logged yet.</div>';
+const fs=[...state.foods].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('foodHistory').innerHTML=fs.length?fs.map(x=>row('◉',x.name,`${x.meal} · ${fmtDate(x.date)}${x.time?' · '+x.time:''}`,`${x.calories} kcal`,{type:'foods',id:x.id})).join(''):'<div class="empty">No food entries yet. Add your first meal above.</div>';document.getElementById('foodEntryCount').textContent=fs.length+' entries';
+const ms=[...state.measurements].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('bodyHistory').innerHTML=ms.length?ms.map(x=>row('⌁','Body check-in',[x.weight!=null?x.weight+' kg':'',x.fat!=null?x.fat+'% body fat':'',x.muscle!=null?x.muscle+' kg muscle':'',x.water!=null?x.water+'% water':'',x.notes||''].filter(Boolean).join(' · ')+' · '+fmtDate(x.date),'',{type:'measurements',id:x.id})).join(''):'<div class="empty">Your measurement history will appear here.</div>';
+const as=[...state.activities].sort((a,b)=>b.date.localeCompare(a.date));document.getElementById('activityHistory').innerHTML=as.length?as.map(x=>row('◌','Activity check-in',[x.move!=null?x.move+' Move kcal':'',x.exercise!=null?x.exercise+' exercise min':'',x.stand!=null?x.stand+' stand hours':'',x.steps!=null?x.steps+' steps':''].filter(Boolean).join(' · ')+' · '+fmtDate(x.date),'',{type:'activities',id:x.id})).join(''):'<div class="empty">No activity totals recorded yet.</div>';
+const m=latestMeasurement();document.getElementById('bodyLatestWeight').textContent=m?.weight??'—';document.getElementById('bodyLatestFat').textContent=m?.fat??'—';document.getElementById('bodyLatestMuscle').textContent=m?.muscle??'—';document.getElementById('bodyLatestWater').textContent=m?.water??'—';document.getElementById('bodyWeightDate').textContent=m?fmtDate(m.date):'No measurement yet';
+}
+function renderGoals(){document.getElementById('goalCalories').value=state.goals.calories;document.getElementById('goalProtein').value=state.goals.protein;document.getElementById('goalMove').value=state.goals.move;document.getElementById('goalExercise').value=state.goals.exercise;document.getElementById('goalStand').value=state.goals.stand;document.getElementById('goalWeight').value=state.goals.weight}
+function render(){renderHome();renderLists();renderGoals()}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function success(id){const e=document.getElementById(id);e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
+document.getElementById('workoutForm').addEventListener('submit',e=>{e.preventDefault();state.workouts.push({id:id(),type:document.getElementById('workoutType').value,name:document.getElementById('workoutName').value.trim(),duration:Number(document.getElementById('workoutDuration').value),date:document.getElementById('workoutDate').value,notes:document.getElementById('workoutNotes').value.trim()});save();e.target.reset();setTodayDefaults();success('workoutSuccess')});
+document.getElementById('foodForm').addEventListener('submit',e=>{e.preventDefault();state.foods.push({id:id(),name:document.getElementById('foodName').value.trim(),meal:document.getElementById('mealType').value,calories:Number(document.getElementById('foodCalories').value),protein:Number(document.getElementById('foodProtein').value),date:document.getElementById('foodDate').value,time:document.getElementById('foodTime').value});save();e.target.reset();setTodayDefaults();success('foodSuccess')});
+document.getElementById('bodyForm').addEventListener('submit',e=>{e.preventDefault();const val=id();const x={id:val,date:document.getElementById('measurementDate').value,notes:document.getElementById('bodyNotes').value.trim()};[['weight','weightInput'],['fat','fatInput'],['muscle','muscleInput'],['water','waterInput']].forEach(([k,i])=>{const v=document.getElementById(i).value;if(v!=='')x[k]=Number(v)});if(!['weight','fat','muscle','water'].some(k=>x[k]!=null)){alert('Enter at least one measurement.');return}state.measurements.push(x);save();e.target.reset();setTodayDefaults();success('bodySuccess')});
+document.getElementById('activityForm').addEventListener('submit',e=>{e.preventDefault();const date=document.getElementById('activityDate').value;const x={id:id(),date};[['move','moveInput'],['exercise','exerciseInput'],['stand','standInput'],['steps','stepsInput']].forEach(([k,i])=>{const v=document.getElementById(i).value;if(v!=='')x[k]=Number(v)});state.activities=state.activities.filter(a=>a.date!==date);state.activities.push(x);save();success('activitySuccess')});
+document.getElementById('settingsForm').addEventListener('submit',e=>{e.preventDefault();state.goals={calories:Number(document.getElementById('goalCalories').value),protein:Number(document.getElementById('goalProtein').value),move:Number(document.getElementById('goalMove').value),exercise:Number(document.getElementById('goalExercise').value),stand:Number(document.getElementById('goalStand').value),weight:Number(document.getElementById('goalWeight').value)};save();success('settingsSuccess')});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-delete]');if(!b)return;const type=b.dataset.delete,ident=b.dataset.id;if(confirm('Delete this entry?')){state[type]=state[type].filter(x=>x.id!==ident);save()}});
+document.getElementById('exportBtn').addEventListener('click',()=>download('mish-in-bloom-backup.json',JSON.stringify(state,null,2),'application/json'));
+function download(name,data,type){const blob=new Blob([data],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+document.getElementById('csvBtn').addEventListener('click',()=>{const rows=[['type','date','name','category','calories_kcal','protein_g','duration_min','weight_kg','body_fat_pct','muscle_kg','body_water_pct','move_kcal','exercise_min','stand_hours','steps','notes']];state.foods.forEach(x=>rows.push(['food',x.date,x.name,x.meal,x.calories,x.protein,'','','','','','','','','','']));state.workouts.forEach(x=>rows.push(['workout',x.date,x.name,x.type,'','',x.duration,'','','','','','','','',x.notes||'']));state.measurements.forEach(x=>rows.push(['body',x.date,'','','','','',x.weight??'',x.fat??'',x.muscle??'',x.water??'','','','','',x.notes||'']));state.activities.forEach(x=>rows.push(['activity',x.date,'','','','','','','','','',x.move??'',x.exercise??'',x.stand??'',x.steps??'','']));const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');download('mish-in-bloom-entries.csv',csv,'text/csv')});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.goals||!Array.isArray(x.foods)||!Array.isArray(x.workouts))throw Error();if(confirm('Import this backup and replace the current app data?')){state=x;save();document.getElementById('dataSuccess').textContent='Backup imported.';document.getElementById('dataSuccess').style.display='block'}}catch(err){alert('That file does not look like a valid Mish in Bloom backup.')}e.target.value=''});
+document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('This permanently deletes all Mish in Bloom entries stored in this browser. Export a backup first if you need one. Are you sure?')){state=fresh();save();document.getElementById('dataSuccess').textContent='All app data deleted.';document.getElementById('dataSuccess').style.display='block'}});
+const d=new Date();document.getElementById('todayLabel').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});document.getElementById('heroDate').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});document.getElementById('overviewDate').textContent='Today';setTodayDefaults();render();
+})();
+</script>
+</body>
+</html>
